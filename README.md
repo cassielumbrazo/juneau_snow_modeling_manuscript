@@ -16,6 +16,8 @@ the [snow_modeling_point repository](https://github.com/cassielumbrazo/snow_mode
   states (`.sno`) for those six runs, copied from `run_snowpack`. See the
   [modeling notes](modeling/README.md) for provenance, path issues, and remaining
   reproducibility requirements. Model outputs are excluded and ignored by Git.
+- `envs/`: The installed `rasterio` environment snapshot and
+  [recreation instructions](envs/README.md) for Figure 1 (Linux x86_64).
 
 | Site | `hrrrak_lapserate` | `met_hrrrak_lapserate` |
 | --- | --- | --- |
