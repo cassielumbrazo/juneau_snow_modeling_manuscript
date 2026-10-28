@@ -1,8 +1,12 @@
 # Juneau snow modeling manuscript
 
 Analysis notebooks for the manuscript on physically based snow modeling in
-Southeast Alaska. This repository collects the figure and table analyses for
-manuscript preparation and review.
+Southeast Alaska. This repository contains copies of only the final figure,
+table, and forcing preparation notebooks accompanying the submitted manuscript,
+organized for reference during review.
+
+The original files, broader analyses, and development workflows are available in
+the [snow_modeling_point repository](https://github.com/cassielumbrazo/snow_modeling_point).
 
 - `figures/`: Figure 1, 3, 4, and 5 notebooks, including the `figure5_bothSWE.ipynb` variant.
 - `tables/`: Table 1 and 2 notebooks, including the `table2_lapserate.ipynb` variant.
