@@ -1,0 +1,33 @@
+To run SNOWPACK on the linux machine, 
+
+We are running, 
+
+> snowpack -c hrrr_point_test.ini -e 2023-11-01T19:00
+
+ini being the config file for the simulation 
+and the -e end date provided for the simulation 
+
+-e, --enddate=YYYY-MM-DDTHH:MM e.g.:2008-08-11T09:00 or NOW
+
+
+The start and end dates need to be well within the bounds of the dates in the smet 
+
+
+Heen  
+WY2021 
+
+2022-07-01T00:00
+
+And WY2020-WY2022 same end datetime
+
+Should rerun and change to 09 maybe since 07 was not late enough
+
+Tram 
+WY2020-WY2025
+
+-e 2025-09-01T00:00
+
+PPSA 
+WY2020-WY2025
+
+-e 2025-09-01T00:00

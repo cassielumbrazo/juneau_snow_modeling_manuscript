@@ -1,0 +1,7 @@
+site,simulation,config,forcing_first_timestamp_UTC,forcing_last_timestamp_UTC
+heen,hrrrak_lapserate_heen_WY2020-WY2025,sites/heen/config/hrrrak_lapserate_heen_WY2020-WY2025.ini,2019-10-01T05:00,2025-09-30T05:00
+ppsa,hrrrak_lapserate_ppsa_WY2020-WY2025,sites/ppsa/config/hrrrak_lapserate_ppsa_WY2020-WY2025.ini,2019-10-01T05:00,2025-09-30T05:00
+tram,hrrrak_lapserate_tram_WY2020-WY2025,sites/tram/config/hrrrak_lapserate_tram_WY2020-WY2025.ini,2019-10-01T05:00,2025-09-30T05:00
+heen,met_hrrrak_lapserate_heen_WY2020-WY2022,sites/heen/config/met_hrrrak_lapserate_heen_WY2020-WY2022.ini,2019-10-01T05:00,2022-09-30T05:00
+ppsa,met_hrrrak_lapserate_ppsa_WY2020-WY2025,sites/ppsa/config/met_hrrrak_lapserate_ppsa_WY2020-WY2025.ini,2019-10-01T05:00,2025-09-30T05:00
+tram,met_hrrrak_lapserate_tram_WY2023-WY2025,sites/tram/config/met_hrrrak_lapserate_tram_WY2023-WY2025.ini,2022-10-01T05:00,2025-09-30T05:00
