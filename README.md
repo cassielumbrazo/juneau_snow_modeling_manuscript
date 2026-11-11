@@ -8,7 +8,8 @@ organized for reference during review.
 The original files, broader analyses, and development workflows are available in
 the [snow_modeling_point repository](https://github.com/cassielumbrazo/snow_modeling_point).
 
-- `figures/`: Figure 1, 3, 4, and 5 notebooks, including the `figure5_bothSWE.ipynb` variant.
+- `figures/scripts/`: Figure 1, 3, 4, and 5 notebooks, including the basemap comparison and presentation variants.
+- `figures/files/`: Exported figure PNG/PDF files; figure notebooks write new exports here.
 - `tables/`: Table 1 and 2 notebooks, including the `table2_lapserate.ipynb` variant.
 - `forcing/`: Six SNOWPACK forcing preparation notebooks, two per site. Filenames
   identify the forcing configuration, site, and water years (WY).
@@ -33,10 +34,9 @@ years referenced in the figure and table analyses (model outputs add `_base`).
 Notebook code and saved outputs are preserved.
 
 To rerun a figure or table analysis, use the Python environment noted at the top of its notebook
-(`rasterio` for Figure 1; `xarray` for the others). The notebooks still reference
+(`rasterio` for Figures 1 and 3; `xarray` for Figures 4 and 5). The notebooks still reference
 external observations, forcing data, and SNOWPACK output through their original
-local paths. Check input and export paths before running; some figure exports
-still write to `snow_modeling_point/figures/`. External observations and model
+local paths. Check input paths before running; figure exports now write to `figures/files/`. External observations and model
 outputs have not been copied into this repository; prepared forcing inputs for
 the six selected runs are included in `modeling/`.
 Forcing notebooks also retain their original input and SMET export paths;

@@ -26,7 +26,7 @@ python -m ipykernel install --user --name manuscript-rasterio --display-name "Ma
 ```
 
 The separate environment name preserves any existing `rasterio` environment.
-In VS Code, open `figures/figure1.ipynb` and select **Manuscript rasterio** as
+In VS Code, open `figures/scripts/figure1.ipynb` and select **Manuscript rasterio** as
 the notebook kernel (or select the `manuscript-rasterio` Python environment).
 An existing Jupyter frontend can use the registered kernel too; this snapshot
 includes `ipykernel`, but does not provide a JupyterLab server.
