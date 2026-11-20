@@ -1,7 +1,7 @@
 # Manuscript SNOWPACK runs
 
 Copied from `/home/cassie/python/models/run_snowpack` for the six lapse-rate
-simulations identified by the notebooks in `../forcing/`. Each simulation has
+simulations identified by the notebooks in `create_forcing/`. Each simulation has
 an `.ini` configuration, an `.smet` meteorological forcing file, and an `.sno`
 initial-state file. Original filenames, contents, and `sites/<site>/config/`
 and `sites/<site>/input/<configuration>_<years>/` structure are preserved.

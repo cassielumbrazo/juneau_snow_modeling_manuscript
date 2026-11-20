@@ -1,6 +1,6 @@
 # Figures
 
-- `scripts/`: Figure notebooks. Run from the repository root, `figures/`, or `figures/scripts/`.
+- `notebooks/`: Figure notebooks. Run from the repository root, `figures/`, or `figures/notebooks/`.
 - `files/`: Final exported PNG/PDF figures. Existing exports were moved here.
 
 `figure1_basemap.ipynb` creates the standalone satellite map and the paired A/B comparison.

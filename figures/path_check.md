@@ -1,6 +1,6 @@
 # Figure path and export check
 
-Checked and rerun on 2026-11-11. All seven notebooks completed from `figures/scripts/`.
+Checked and rerun on 2026-11-11. All seven original notebooks completed. They now live in `figures/notebooks/`.
 
 Every existing absolute local input path was checked for existence. These inputs remain in
 the shared `/hdd/snow_hydrology/` archive or the original SNOWPACK model-output folders;

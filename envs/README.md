@@ -1,5 +1,24 @@
 # Python environments
 
+## Juneau seasonal snow manuscript
+
+Use `juneau_seasonal_snow` for the manuscript plotting, table, and forcing
+notebooks. The [environment specification](juneau_seasonal_snow.yml) records
+the Linux x86-64 Conda package builds installed in the verified environment.
+It was cloned from the working `rasterio` environment to retain compatible
+versions of the geospatial, GRIB, NetCDF, and plotting dependencies.
+
+From the repository root, recreate the environment and register its kernel:
+
+```bash
+conda env create --file envs/juneau_seasonal_snow.yml
+conda activate juneau_seasonal_snow
+python -m ipykernel install --user --name juneau_seasonal_snow --display-name "Python (juneau_seasonal_snow)"
+```
+
+Select **Python (juneau_seasonal_snow)** in VS Code or Jupyter. The notebooks
+still use the existing external HRRR-AK, terrain, station, and SNOWPACK data.
+
 ## Rasterio: Figure 1
 
 `rasterio.yml` is a full export of the installed `rasterio` Conda environment
@@ -26,7 +45,7 @@ python -m ipykernel install --user --name manuscript-rasterio --display-name "Ma
 ```
 
 The separate environment name preserves any existing `rasterio` environment.
-In VS Code, open `figures/scripts/figure1.ipynb` and select **Manuscript rasterio** as
+In VS Code, open `figures/notebooks/figure1.ipynb` and select **Manuscript rasterio** as
 the notebook kernel (or select the `manuscript-rasterio` Python environment).
 An existing Jupyter frontend can use the registered kernel too; this snapshot
 includes `ipykernel`, but does not provide a JupyterLab server.

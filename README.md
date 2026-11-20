@@ -8,10 +8,10 @@ organized for reference during review.
 The original files, broader analyses, and development workflows are available in
 the [snow_modeling_point repository](https://github.com/cassielumbrazo/snow_modeling_point).
 
-- `figures/scripts/`: Figure 1, 3, 4, and 5 notebooks, including the basemap comparison and presentation variants.
+- `figures/notebooks/`: Figure 1, 3, 4, and 5 notebooks, including the basemap comparison and presentation variants.
 - `figures/files/`: Exported figure PNG/PDF files; figure notebooks write new exports here.
 - `tables/`: Table 1 and 2 notebooks, including the `table2_lapserate.ipynb` variant.
-- `forcing/`: Six SNOWPACK forcing preparation notebooks, two per site. Filenames
+- `modeling/create_forcing/`: Six SNOWPACK forcing preparation notebooks, two per site. Filenames
   identify the forcing configuration, site, and water years (WY).
 - `modeling/`: Configurations (`.ini`), prepared forcing (`.smet`), and initial
   states (`.sno`) for those six runs, copied from `run_snowpack`. See the
