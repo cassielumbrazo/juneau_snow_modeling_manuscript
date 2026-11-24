@@ -10,7 +10,7 @@ import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
 from matplotlib.collections import PolyCollection
 from matplotlib.lines import Line2D
-from matplotlib.patches import Rectangle
+from matplotlib.patches import Patch, Rectangle
 from matplotlib.ticker import MultipleLocator
 import numpy as np
 import pandas as pd
@@ -49,6 +49,35 @@ GRAINS = {
     8: ('IF', '#00ffff'),
     9: ('FCxr', '#76b9d0'),
 }
+
+
+GRAIN_NAMES = {
+    1: 'Precipitation particles',
+    2: 'Decomposing and fragmented particles',
+    3: 'Rounded grains',
+    4: 'Faceted crystals',
+    5: 'Depth hoar',
+    6: 'Surface hoar',
+    7: 'Melt forms',
+    10: 'Melt–freeze crust',
+    8: 'Ice formations',
+    9: 'Rounding faceted particles',
+}
+
+
+def _draw_grain_legend(fig, ax):
+    handles = [
+        Patch(facecolor=color, edgecolor='black' if code == 10 else '#45515a',
+              linewidth=0.6, hatch='||||' if code == 10 else None,
+              label=f'{abbreviation}  {GRAIN_NAMES[code]}')
+        for code, (abbreviation, color) in GRAINS.items()
+    ]
+    panel = ax.get_position()
+    center = (panel.x0 + panel.x1) / 2
+    fig.legend(handles=handles, title='Snow grain types', title_fontsize=11,
+               loc='upper center', bbox_to_anchor=(center, 0.22), borderaxespad=0,
+               ncols=3, fontsize=9, frameon=True, facecolor='white', edgecolor='#8e99a4',
+               framealpha=1, fancybox=False, borderpad=0.9, handlelength=2, labelspacing=0.8)
 
 
 @dataclass
@@ -233,7 +262,9 @@ def _draw_layers(ax, cax, profiles, variable, cadence, limits):
 
 
 def plot_profiles(profiles, cadence, variables, window, *, heading, subtitle,
-                  depth_max=None, color_limits=None, pit_times=(), pit_comparisons=()):
+                  depth_max=None, color_limits=None, pit_times=(), pit_comparisons=(),
+                  monthly_date_ticks=False, pit_line_color='black', timeline_hspace=0.34,
+                  grain_legend=False):
     """Draw a single timeline or stacked manuscript panels."""
     peak = max((p.top_cm[-1] for p in profiles if len(p.top_cm)), default=0)
     depth_max = depth_max or max(50, np.ceil(peak / 50) * 50)
@@ -244,16 +275,23 @@ def plot_profiles(profiles, cadence, variables, window, *, heading, subtitle,
     }):
         include_profiles = bool(pit_comparisons)
         height = 11 if include_profiles else (7.8 if len(variables) > 1 else 4.5)
-        fig = plt.figure(figsize=(12, height))
+        fig = plt.figure(figsize=(12, height + (2.4 if grain_legend else 0)))
+        timeline_bottom = 0.415 if include_profiles else 0.10
+        if grain_legend:
+            timeline_bottom = 0.29
         grid = fig.add_gridspec(len(variables), 2, left=0.12, right=0.92,
-                               bottom=0.39 if include_profiles else 0.10,
+                               bottom=timeline_bottom,
                                top=0.88 if include_profiles else (0.82 if len(variables) > 1 else 0.72),
-                               width_ratios=(0.022, 1), wspace=0.08, hspace=0.34)
+                               width_ratios=(0.022, 1), wspace=0.08, hspace=timeline_hspace)
         fig.text(0.12, 0.97, heading, va='top', fontsize=16, weight='bold')
         subtitle_y = 0.938 if include_profiles else (0.925 if len(variables) > 1 else 0.885)
         fig.text(0.12, subtitle_y, subtitle, va='top', fontsize=10, color='#45515a')
+        date_axis = None
         for index, variable in enumerate(variables):
-            cax, ax = fig.add_subplot(grid[index, 0]), fig.add_subplot(grid[index, 1])
+            cax = fig.add_subplot(grid[index, 0])
+            ax = fig.add_subplot(grid[index, 1], sharex=date_axis)
+            if monthly_date_ticks and index == 0:
+                date_axis = ax
             _draw_layers(ax, cax, profiles, variable, cadence, color_limits.get(variable))
             ax.set_xlim(*mdates.date2num(window))
             ax.set_ylim(0, depth_max)
@@ -266,6 +304,13 @@ def plot_profiles(profiles, cadence, variables, window, *, heading, subtitle,
             ax.xaxis.set_major_formatter(mdates.ConciseDateFormatter(locator))
             ax.xaxis.set_minor_locator(mdates.WeekdayLocator())
             ax.tick_params(labelsize=9)
+            if monthly_date_ticks:
+                ax.xaxis.set_major_locator(mdates.MonthLocator(bymonthday=1))
+                ax.xaxis.set_major_formatter(mdates.DateFormatter('%-d %b\n%Y'))
+                ax.xaxis.set_minor_locator(mdates.MonthLocator(bymonthday=1))
+                ax.tick_params(axis='x', which='major', bottom=True,
+                               labelbottom=index == len(variables) - 1,
+                               length=5, width=0.8, color='#46515b')
             ax.grid(which='minor', axis='x', alpha=0.5, linestyle=':')
             ax.set_title(f'Simulated {VARIABLES[variable].title.lower()}', loc='left', fontsize=12)
             if len(variables) > 1:
@@ -273,13 +318,16 @@ def plot_profiles(profiles, cadence, variables, window, *, heading, subtitle,
                         va='top', fontsize=10, color='dimgrey', zorder=4,
                         bbox=dict(facecolor=ax.get_facecolor(), edgecolor='none', pad=1))
             for time in pit_times:
-                ax.axvline(time, color='black', linestyle='--', linewidth=1.3, zorder=3)
+                ax.axvline(time, color=pit_line_color, linestyle='--', linewidth=1.3, zorder=3)
             if pit_times and index == 0:
-                handle = Line2D([], [], color='black', linestyle='--', linewidth=1.3,
-                                label='Snow pit observations (Table 2)')
+                pit_reference = 'panels C–F' if include_profiles else 'Table 2'
+                handle = Line2D([], [], color=pit_line_color, linestyle='--', linewidth=1.3,
+                                label=f'Snow pit observations ({pit_reference})')
                 ax.legend(handles=[handle], loc='upper right', fontsize=9, framealpha=1)
         if include_profiles:
             _draw_pit_comparisons(fig, pit_comparisons, variables, color_limits, depth_max)
+        if grain_legend:
+            _draw_grain_legend(fig, ax)
     return fig
 
 
@@ -347,7 +395,7 @@ def _draw_pit_comparisons(fig, comparisons, variables, color_limits, depth_max):
             ax.set_title(f'{chr(67 + index)}) {VARIABLES[variable].title}',
                          loc='left', fontsize=11, pad=7)
             ax.set(xlim=(-0.46, 1.46), ylim=(0, depth_max),
-                   xticks=[0, 1], xticklabels=['Observed', 'Met mixed'])
+                   xticks=[0, 1], xticklabels=['Observed', 'Simulated'])
             ax.yaxis.set_major_locator(MultipleLocator(50))
             ax.tick_params(axis='both', labelsize=9, length=0)
             ax.grid(axis='x', visible=False)
